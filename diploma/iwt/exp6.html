@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example</title>
+<script type="text/javascript">
+function moveover()
+{
+document.getElementById('image').src="abc.png";
+}
+
+function moveback()
+{
+document.getElementById('image').src="laptop.png";
+}
+</script>
+</head>
+<body>
+<b>Move Cursor over the image</b><br>
+<img id="image" src="laptop.png" onmouseover="moveover()" onmouseout="moveback()" width="100" height="100">
+</body>
+</html>
