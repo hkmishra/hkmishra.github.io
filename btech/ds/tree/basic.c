@@ -29,6 +29,10 @@ struct node* maketree(int x){
 
 struct node* setleft(struct node* parent,int x){
     struct node* q;
+    if(parent=='\0')
+        exit(0);
+    if(parent->left!='\0')
+        exit(0);
     q=maketree(x);
     parent->left=q;
     return q;
@@ -36,6 +40,10 @@ struct node* setleft(struct node* parent,int x){
 
 struct node* setright(struct node* parent, int x){
     struct node* q;
+    if(parent=='\0')
+        exit(0);
+    if(parent->right!='\0')
+        exit(0);
     q=maketree(x);
     parent->right=q;
     return q;
@@ -84,4 +92,3 @@ void main(){
     printf("\npostrav =");
     postrav(tree);
 }
-
