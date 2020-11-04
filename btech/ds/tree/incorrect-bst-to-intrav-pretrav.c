@@ -2,41 +2,32 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <math.h>
-#define SIZE 100
+
 
 
 int *tree,*tree2,*tree3;
+int last_index;
 
-void maketree(int x){
-    int i=1;
-    tree[0] = x;
-    while(i<SIZE)
-        tree[i++]='-1';
-}
-
-int setleft(int p,int x){
-    int l = 2*p+1;
-    if(tree[p]=='-1') return -1;
-    if(tree[l]!='-1') return -1;
-    if(l>SIZE-1) return 0;
-    tree[l]=x;
-    return l;
-}
-
-int setright(int p,int x){
-    int r=2*p+2;
-    if(tree[p]=='-1') return 0;
-    if(tree[r] != '-1') return 0;
-    if(r>SIZE-1) return 0;
-    tree[r]=x;
-    return r;
-}
 
 void intrav(int p){
-    if(tree[p]=='-1') return 0;
+    if(p>last_index) return;
     intrav(2*p+1);
     printf("%d ",tree[p]);
     intrav(2*p+2);
+}
+
+void pretrav(int p){
+    if(p>last_index) return;
+    printf("%d ",tree[p]);
+    pretrav(2*p+1);
+    pretrav(2*p+2);
+}
+
+void postrav(int p){
+    if(p>last_index) return;
+    postrav(2*p+1);
+    postrav(2*p+2);
+    printf("%d ",tree[p]);
 }
 
 //////////////////////////////////////
@@ -64,41 +55,31 @@ void main(){
     int tpos = 0;
     int a,b,k=0;
     int no_of_data,count=0,i=-1;
-    int last_index;
+    
     printf("Enter size of tree: ");
     scanf("%d",&no_of_data);
     
      tree2 = (int*)malloc(no_of_data * sizeof(int));
      tree = (int*)malloc(no_of_data * sizeof(int));
     
-    printf("Enter sorted tree: \npress negative integer to stop entering\n");
+    printf("Enter elements of tree in sorted order: \n");
     while(count<no_of_data){
         scanf("%d",&tree2[count]);
         count++;
     }
+    printf("Entered sorted elements = ");
     for(i=0;i<no_of_data;i++)
         printf("%d ",tree2[i]);
     printf("\n-----------\n");
- 
- 
-    maketree(9);
-    a = setleft(tpos,1);
-    b = setright(tpos,2);
-    setleft(a,3);
-    setright(a,4);
-    setleft(b,5);
-    setright(b,6);
-    
-    
-    intrav(tpos);
-    
-    
+
     last_index = no_of_data - 1;
     
-    printf("\n\n");
-    recursion(0, last_index,0);
+    recursion(0, last_index,0);     // this method creates the tree
+    printf("\nContent of implicit array: \n");
     for(k=0;k<no_of_data;k++)
         printf("%d ",tree[k]);
     printf("\n=======\n");
-    intrav(tpos);
+    printf("\nPretrav = ");pretrav(tpos);
+    printf("\nIntrav = ");intrav(tpos);
+    printf("\nPostrav = ");postrav(tpos);
 }
