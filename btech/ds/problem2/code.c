@@ -36,11 +36,12 @@ int main()
     }//end of for
     
     printf("\n====\n");
-    
+    k = 0;
     for(i=50;i>=0;i--){
         if(strcmp(fans[i],"0000")!=0)
-        {
+        {   
             printf("%s\n",fans[i]);
+            if(++k == m) break;
         }
     }
     
