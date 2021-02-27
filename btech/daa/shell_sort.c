@@ -24,6 +24,28 @@ void shell_sort(int a[],int size)
     }
 }
 
+
+void shell_sort2(int a[],int size)
+{
+    int gap,j,i,temp;
+    for(gap = floor(size/2);gap>=1;gap=floor(gap/2))
+    {
+        for(j=gap;j<size;j++)
+        {
+            i=j-gap;
+            while(i>=0 && a[i]>a[i+gap])
+            {
+                temp=a[i+gap];
+                a[i+gap]=a[i];
+                a[i]=temp;
+                
+                i=i-gap;
+            }
+        }
+    }
+}
+
+
 void insertion_sort(int a[],int size)
 {
     int i,j,key;
@@ -47,7 +69,7 @@ int main()
     size= sizeof(a)/sizeof(int);
     
     //insertion_sort(a,size);
-    shell_sort(a,size);
+    shell_sort2(a,size);
     
     for(i=0;i<size;i++)
     {
