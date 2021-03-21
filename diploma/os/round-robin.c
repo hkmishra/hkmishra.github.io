@@ -43,6 +43,8 @@ int main() {
     int burst_remaining[100];
     int idx;
 
+    int at[100],bt[100],temp,processes[100];
+    
     cout << setprecision(2) << fixed;
 
     cout<<"Enter the number of processes: ";
@@ -50,15 +52,53 @@ int main() {
     cout<<"Enter time quantum: ";
     cin>>tq;
 
-    for(int i = 0; i < n; i++) {
+   
+
+     for(int i = 0; i < n; i++) {
         cout<<"Enter arrival time of process "<<i+1<<": ";
-        cin>>p[i].arrival_time;
+        cin>>at[i];
         cout<<"Enter burst time of process "<<i+1<<": ";
-        cin>>p[i].burst_time;
-        burst_remaining[i] = p[i].burst_time;
-        p[i].pid = i+1;
+        cin>>bt[i];
+        processes[i] = i+1;
         cout<<endl;
     }
+
+
+    int pos=0,j=0;
+    //sorting of burst times
+    for(int i=0;i<n;i++)
+    {
+        pos=i;
+        for(j=i+1;j<n;j++)
+        {
+            if(at[j]<at[pos])
+                pos=j;
+        }
+  
+        temp=bt[i];
+        bt[i]=bt[pos];
+        bt[pos]=temp;
+  
+        temp=processes[i];
+        processes[i]=processes[pos];
+        processes[pos]=temp;
+        
+        
+        temp = at[i];
+        at[i]=at[pos];
+        at[pos]=temp;
+    }
+    
+     for(int i = 0; i < n; i++) {
+//        cout<<"Enter arrival time of process "<<i+1<<": ";
+        p[i].arrival_time=at[i];
+//        cout<<"Enter burst time of process "<<i+1<<": ";
+        p[i].burst_time=bt[i];
+        burst_remaining[i] = p[i].burst_time;
+        p[i].pid = processes[i];
+//        cout<<endl;
+    }
+
 
     sort(p,p+n,compare1);
 
@@ -132,8 +172,9 @@ int main() {
 
     cout<<endl;
     
-    cout<<"========================================"<<endl<<endl;
+    cout<<"========================================"<<endl;
     cout<<"Round Robin Scheduling Algorithm"<<endl;
+    cout<<"========================================"<<endl;
     cout<<"#P\t"<<"AT\t"<<"BT\t"<<"ST\t"<<"CT\t"<<"TAT\t"<<"WT\t"<<"RT\t"<<"\n"<<endl;
 
     for(int i = 0; i < n; i++) {
