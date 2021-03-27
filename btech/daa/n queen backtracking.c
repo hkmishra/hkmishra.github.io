@@ -1,11 +1,17 @@
+/*
+*   N Queen General Recursive Solution
+*   N taken from user
+*   By: Harsh Kumar Mishra (Btech/60314/19)
+*/
 #include <stdio.h>
 #include <stdlib.h>
-#define N 8
+int N = 8;
 
 int count=0;
 
 //print Solution + intermediate array
-void printArray(int a[N][N])
+//void printArray(int a[N][N])
+void printArray(int **a)
 {
     int i,j;
     printf("\nArrray = \n");
@@ -20,7 +26,8 @@ void printArray(int a[N][N])
 }
 
 //only print Solution : -1 is printed as 0
-void printArray2(int a[N][N])
+//void printArray2(int a[N][N])
+void printArray2(int **a)
 {
     int i,j;
     printf("\nArrray = \n");
@@ -37,7 +44,8 @@ void printArray2(int a[N][N])
     }
 }
 
-void setDiagonal(int a[N][N],int pos1,int pos2)
+//void setDiagonal(int a[N][N],int pos1,int pos2)
+void setDiagonal(int **a,int pos1,int pos2)
 {
     int i,j;
     for(i=pos1,j=pos2;i>=0&&j>=0;i--,j--)
@@ -62,7 +70,8 @@ void setDiagonal(int a[N][N],int pos1,int pos2)
     }
 }
 
-void setQueen(int a[N][N],int pos1,int pos2)
+//void setQueen(int a[N][N],int pos1,int pos2)
+void setQueen(int **a,int pos1,int pos2)
 {
     int i,j;
 
@@ -79,7 +88,8 @@ void setQueen(int a[N][N],int pos1,int pos2)
     a[pos1][pos2]=1;
 }
 
-int no_of_queen(int a[N][N])
+//int no_of_queen(int a[N][N])
+int no_of_queen(int **a)
 {
     int count=0;
     int i,j;
@@ -94,7 +104,8 @@ int no_of_queen(int a[N][N])
 }
 
 
-void setZero(int a[N][N])
+//void setZero(int a[N][N])
+void setZero(int **a)
 {
     int i,j;
     for(i=0;i<N;i++){
@@ -106,7 +117,8 @@ void setZero(int a[N][N])
 }
 
 
-void test_ok(int a[N][N]){
+//void test_ok(int a[N][N]){
+void test_ok(int **a){
     if(no_of_queen(a)==N){
         count++;
         printf("\nSolution %d : ",count);
@@ -118,7 +130,8 @@ void test_ok(int a[N][N]){
 }
 
 
-int test_ok_code(int a[N][N]){
+//int test_ok_code(int a[N][N]){
+int test_ok_code(int **a){    
     if(no_of_queen(a)==N){
         return 1;   //passed
     }
@@ -126,7 +139,8 @@ int test_ok_code(int a[N][N]){
 }
 
 
-void copy_array(int a[N][N],int b[N][N]){
+//void copy_array(int a[N][N],int b[N][N]){
+void copy_array(int **a,int **b){    
     int i,j;
     for(i=0;i<N;i++){
         for(j=0;j<N;j++){
@@ -135,11 +149,18 @@ void copy_array(int a[N][N],int b[N][N]){
     }
 }
 
-void nqueen(int a[N][N],int c)
+//void nqueen(int a[N][N],int c)
+void nqueen(int **a,int c)
 {
     int i=0;
-    int b[N][N];
-    setZero(b);
+//    int b[N][N];
+//    setZero(b);
+    
+    int **b;
+    b = (int **)(malloc(N*sizeof(int *)));
+    for(i=0;i<N;i++)
+        b[i] = (int *)(malloc(N*sizeof(int)));
+        
     for(i=0;i<N;i++){
         if(c==0){
             setZero(a);
@@ -179,17 +200,30 @@ void nqueen(int a[N][N],int c)
 
 int main()
 {
-    int a[N][N];
-    setZero(a);
-    printf("N Queen Problem General Iterative Solution");
-    printf("\nBy: Harsh Kumar");
-    printf("\n  Btech/60314/19 CSE");
-    printf("\n\n\n");
+    int **harsh;
+    int i;
+    N = 8;
     
-    nqueen(a,0);
+    printf("N Queen Problem using Backtracking\n");
+    printf("Enter value of  N : ");
+    scanf("%d",&N);
+    
+    harsh = (int **)(malloc(N*sizeof(int *)));
+    for(i=0;i<N;i++)
+        harsh[i] = (int *)(malloc(N*sizeof(int)));
+        
+    
+    printf("\n%d Queen Problem General Recursive Solution :",i);
+    printf("\nBy: Harsh Kumar Mishra");
+    printf("\n  Btech/60314/19 CSE");
+    printf("\n\n");
+    
+    nqueen(harsh,0);
     
     printf("\n\nTotal No of solutions found: %d",count);
     
+    printf("\n\nBy: Harsh Kumar Mishra");
+    printf("\n  Btech/60314/19 CSE");
+    
     return 0;
 }
-    
